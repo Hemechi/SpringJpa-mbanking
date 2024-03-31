@@ -22,4 +22,5 @@ public class CardType {
 
         @OneToMany(mappedBy = "cardType")
         private List<Card> cards;
+
 }

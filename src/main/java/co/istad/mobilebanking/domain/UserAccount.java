@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user_accounts")
 public class UserAccount {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +22,9 @@ public class UserAccount {
     @ManyToOne
     private Account account;
 
-    private Boolean isDeleted;
+    private Boolean isDeleted; // manage delete status (admin want to disable or remove an account)
+    private Boolean isBlocked; // manage block status (when there is bad action happened)
+
     private LocalDateTime createdAt;
 
 }

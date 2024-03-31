@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "accounts")
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +23,16 @@ public class Account {
     @Column(unique = true, nullable = false, length = 100)
     private String actName;
 
+    @Column(length = 100)
+    private String alias;
+
+    @Column(nullable = false)
+    private BigDecimal balance;
+
+    @Column(nullable = false)
     private BigDecimal transferLimit;
 
-    //Account has a type
+    // Account has a type
     @ManyToOne
     private AccountType accountType;
 
@@ -33,4 +41,7 @@ public class Account {
 
     @OneToOne
     private Card card;
+
+    private Boolean isHidden; // uses to hide account on mobile app
+
 }
