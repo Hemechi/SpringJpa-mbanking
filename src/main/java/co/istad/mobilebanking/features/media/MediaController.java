@@ -39,10 +39,6 @@ public class MediaController {
     }
     @GetMapping("/download/{mediaName}")
     public ResponseEntity<?> downloadMedia(@PathVariable String mediaName) {
-        return ResponseEntity.ok().body(
-                Map.of(
-                        "media",mediaService.downloadMediaByName(mediaName, "IMAGE")
-                )
-        );
+        return mediaService.downloadMediaByName(mediaName, "IMAGE");
     }
 }
