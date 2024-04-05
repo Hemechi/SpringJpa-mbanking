@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
 
-    @Value("${media.base-uri}")
+    @Value("${media.server-path}")
     private String mediaBaseUri;
 
     @Override

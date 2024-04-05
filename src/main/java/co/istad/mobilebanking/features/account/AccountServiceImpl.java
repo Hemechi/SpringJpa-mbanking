@@ -32,21 +32,20 @@ public class AccountServiceImpl implements AccountService{
     private final AccountTypeMapper accountTypeMapper;
     @Override
     public void createNew(AccountCreateRequest accountCreateRequest) {
-        //check account type
-        AccountType accountType = accountTypeRepository.findByAlias(accountCreateRequest.alias())
-                .orElseThrow(()->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                "Invalid account type"
-                        ));
-        //check user by uuid
+
+        // check account type
+        AccountType accountType = accountTypeRepository.findByAlias(accountCreateRequest.accountTypeAlias())
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Invalid account type"));
+
+        // check user by UUID
         User user = userRepository.findByUuid(accountCreateRequest.userUuid())
-                .orElseThrow(()->
-                        new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                "User has not been found"
-                        ));
-        //map account dto to entity
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "User has not been found"));
+
+        // map account dto to account entity
         Account account = accountMapper.fromAccountCreateRequest(accountCreateRequest);
         account.setAccountType(accountType);
         account.setActName(user.getName());
@@ -60,16 +59,20 @@ public class AccountServiceImpl implements AccountService{
         userAccount.setIsDeleted(false);
         userAccount.setIsBlocked(false);
         userAccount.setCreatedAt(LocalDateTime.now());
-        userAccountRepository.save(userAccount);
 
+        userAccountRepository.save(userAccount);
     }
+
     @Override
-    public AccountResponse findAccountByActNumber(String accountNumber) {
-        Account account = accountRepository.findAccountByActNo(accountNumber);
-        AccountType accountType = account.getAccountType();
-        AccountTypeResponse accountTypeResponse = accountTypeMapper.toAccountTypeResponse(accountType);
-        AccountResponse accountResponse = new AccountResponse(account.getActName(), account.getAlias(),
-                account.getBalance(), accountTypeResponse);
+    public AccountResponse findByActNo(String actNo) {
+        Account account = accountRepository.findByActNo(actNo)
+                .orElseThrow(()->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Account Number is invalid!"
+                        ));
+//        AccountType accountType = account.getAccountType();
+        AccountResponse accountResponse = accountMapper.toAccountResponse(account);
         return accountResponse;
     }
 }

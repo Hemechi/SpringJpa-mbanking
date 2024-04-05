@@ -9,7 +9,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -65,11 +67,13 @@ public class UserController {
     }
 
     //update user profile image
-    @PutMapping("/{uuid}/profile-image")
-    BasedResponse<?> updateProfileImage(@PathVariable String uuid,
-                                     @Valid @RequestBody UserProfileImageRequest userProfileImageRequest) {
-        String newProfileImageUri = userService.updateProfileImage(uuid, userProfileImageRequest.mediaName());
+    @PutMapping(value = "/{uuid}/profile-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public BasedResponse<?> updateProfileImage(@PathVariable String uuid,
+                                               @Valid @RequestBody UserProfileImageRequest request) {
+        // Assuming MultipartFile is used for uploading the image
+        String newProfileImageUri = userService.updateProfileImage(uuid, request.mediaName());
         return BasedResponse.builder().payload(newProfileImageUri).build();
     }
-
 }
+
+

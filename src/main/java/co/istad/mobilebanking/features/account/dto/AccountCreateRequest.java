@@ -13,7 +13,7 @@ public record AccountCreateRequest(
         @NotNull(message = "First balance is required ($5 up)")
         BigDecimal balance,
         @NotBlank(message = "Account type is required")
-        AccountTypeResponse accountType,
+        String accountTypeAlias,
         @NotBlank(message = "User owner is required")
         String userUuid,
         String cardNumber //if user create account type card

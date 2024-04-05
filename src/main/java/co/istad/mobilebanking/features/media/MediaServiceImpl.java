@@ -129,7 +129,7 @@ public class MediaServiceImpl implements MediaService{
                         .contentType(Files.probeContentType(path))
                         .extension(MediaUtil.extractExtension(mediaName))
                         .size(size)
-                        .uri(String.format("%s%s/%s", baseUri, folderName, mediaName))
+                        .uri(String.format("%s/%s", baseUri, folderName, mediaName))
                         .build();
             }
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
