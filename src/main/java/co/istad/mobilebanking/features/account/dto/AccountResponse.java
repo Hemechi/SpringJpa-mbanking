@@ -8,6 +8,6 @@ public record AccountResponse(
         String actName,
         String alias,
         BigDecimal balance,
-        AccountTypeResponse accountTypeResponse
+       AccountTypeResponse accountTypeResponse
 ) {
 }

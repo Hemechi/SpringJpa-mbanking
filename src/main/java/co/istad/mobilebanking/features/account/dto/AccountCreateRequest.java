@@ -1,5 +1,7 @@
 package co.istad.mobilebanking.features.account.dto;
 
+import co.istad.mobilebanking.domain.AccountType;
+import co.istad.mobilebanking.features.account_type.dto.AccountTypeResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,7 +13,7 @@ public record AccountCreateRequest(
         @NotNull(message = "First balance is required ($5 up)")
         BigDecimal balance,
         @NotBlank(message = "Account type is required")
-        String accountType,
+        AccountTypeResponse accountType,
         @NotBlank(message = "User owner is required")
         String userUuid,
         String cardNumber //if user create account type card
