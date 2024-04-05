@@ -17,5 +17,6 @@ public interface UserService {
     DisableUser disableUser(String uuid);
     EnableUser enableUser(String uuid);
     Page<UserResponse> findList(int page, int limit);
+    String updateProfileImage(String uuid,String mediaName);
 
 }

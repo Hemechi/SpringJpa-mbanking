@@ -70,8 +70,10 @@ public class MediaServiceImpl implements MediaService{
     @Override
     public List<MediaResponse> uploadMultiple(List<MultipartFile> files, String folderName) {
 
+        // Create empty array list, wait for adding uploaded file
         List<MediaResponse> mediaResponses = new ArrayList<>();
 
+        // Use loop to upload each file
         files.forEach(file -> {
             MediaResponse mediaResponse = this.uploadSingle(file, folderName);
             mediaResponses.add(mediaResponse);
@@ -83,6 +85,7 @@ public class MediaServiceImpl implements MediaService{
     @Override
     public MediaResponse loadMediaByName(String mediaName, String folderName) {
 
+        // Create absolute path of media
         Path path = Paths.get(serverPath + folderName + "\\" + mediaName);
 
         try {
@@ -115,6 +118,7 @@ public class MediaServiceImpl implements MediaService{
     @Override
     public MediaResponse deleteMediaByName(String mediaName, String folderName) {
 
+        // Create absolute path of media
         Path path = Paths.get(serverPath + folderName + "\\" + mediaName);
 
         try {

@@ -1,6 +1,7 @@
 package co.istad.mobilebanking.features.user;
 
 import co.istad.mobilebanking.base.BasedMessage;
+import co.istad.mobilebanking.base.BasedResponse;
 import co.istad.mobilebanking.features.user.dto.*;
 import co.istad.mobilebanking.status.DisableUser;
 import co.istad.mobilebanking.status.EnableUser;
@@ -61,6 +62,14 @@ public class UserController {
     @PutMapping("/{uuid}/enable")
     EnableUser enableUser(@PathVariable String uuid){
         return userService.enableUser(uuid);
+    }
+
+    //update user profile image
+    @PutMapping("/{uuid}/profile-image")
+    BasedResponse<?> updateProfileImage(@PathVariable String uuid,
+                                     @Valid @RequestBody UserProfileImageRequest userProfileImageRequest) {
+        String newProfileImageUri = userService.updateProfileImage(uuid, userProfileImageRequest.mediaName());
+        return BasedResponse.builder().payload(newProfileImageUri).build();
     }
 
 }

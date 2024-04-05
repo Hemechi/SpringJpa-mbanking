@@ -10,6 +10,7 @@ import co.istad.mobilebanking.status.EnableUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+
+    @Value("${media.base-uri}")
+    private String mediaBaseUri;
 
     @Override
     public void createNew(UserCreateRequest userCreateRequest) {
@@ -232,5 +236,18 @@ public class UserServiceImpl implements UserService {
         Page<User> users=userRepository.findAll(pageRequest);
         //Map result of pagination to response
         return users.map(userMapper::toUserResponse);
+    }
+
+    @Override
+    public String updateProfileImage(String uuid, String mediaName) {
+        User user = userRepository.findByUuid(uuid)
+                .orElseThrow(()->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "User uuid has been not found!"
+                        ));
+        user.setProfileImage(mediaName);
+        userRepository.save(user);
+        return mediaBaseUri+ "IMAGE/" +mediaName;
     }
 }
