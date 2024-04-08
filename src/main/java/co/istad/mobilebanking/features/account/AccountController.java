@@ -49,5 +49,4 @@ public class AccountController {
         return accountService.updateTransferLimit(actNo,accountUpdateTransferLimitRequest);
     }
 
-    //update transfer limit (RequestParam transfer limit) : mean luy pin na ban transfer ban tae pin ng
 }
