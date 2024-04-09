@@ -5,6 +5,7 @@ import co.istad.mobilebanking.domain.User;
 import co.istad.mobilebanking.domain.UserAccount;
 import co.istad.mobilebanking.features.account.dto.AccountCreateRequest;
 import co.istad.mobilebanking.features.account.dto.AccountResponse;
+import co.istad.mobilebanking.features.account.dto.AccountSnippetResponse;
 import co.istad.mobilebanking.features.user.dto.UserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -28,4 +29,5 @@ public interface AccountMapper {
 //    }
 //    UserResponse toUserResponse(User user);
 
+    AccountSnippetResponse toAccountSnippetResponse(Account account);
 }

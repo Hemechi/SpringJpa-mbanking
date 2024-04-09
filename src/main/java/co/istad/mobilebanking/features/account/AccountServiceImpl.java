@@ -11,6 +11,7 @@ import co.istad.mobilebanking.features.account.dto.AccountUpdateTransferLimitReq
 import co.istad.mobilebanking.features.account_type.AccountTypeRepository;
 import co.istad.mobilebanking.features.user.UserRepository;
 import co.istad.mobilebanking.mapper.AccountMapper;
+import co.istad.mobilebanking.util.RandomUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class AccountServiceImpl implements AccountService{
         Account account = accountMapper.fromAccountCreateRequest(accountCreateRequest);
         account.setAccountType(accountType);
         account.setActName(user.getName());
-        account.setActNo("123456789");
+        account.setActNo(RandomUtil.generate9Digits());
         account.setTransferLimit(BigDecimal.valueOf(5000));
         account.setIsHidden(false);
 

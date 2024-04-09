@@ -3,9 +3,9 @@ package co.istad.mobilebanking.util;
 import java.util.Random;
 
 public class RandomUtil {
-    public static String generate9Digit(){
+    public static String generate9Digits() {
         Random random = new Random();
-        int randomNumber = random.nextInt(1000000000);
-        return String.format("%09d", randomNumber);
+        return String.format("%09d", random.nextInt(1000000000));
     }
+
 }
