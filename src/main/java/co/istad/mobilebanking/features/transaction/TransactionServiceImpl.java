@@ -95,7 +95,7 @@ public class TransactionServiceImpl implements TransactionService{
         if (sortDirection != null && sortDirection.equalsIgnoreCase("desc")) {
             direction = Sort.Direction.DESC;
         }
-// Define sorting by date
+        // Define sorting by date
         Sort sort;
         if ("type".equalsIgnoreCase(transactionType)) {
             sort = Sort.by(direction, "transactionType");
