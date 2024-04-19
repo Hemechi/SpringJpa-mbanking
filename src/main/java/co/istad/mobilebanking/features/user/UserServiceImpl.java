@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${media.server-path}")
     private String mediaBaseUri;
@@ -64,11 +66,15 @@ public class UserServiceImpl implements UserService {
         //DTO pattern
         User user = userMapper.fromUserCreateRequest(userCreateRequest);
         user.setUuid(UUID.randomUUID().toString());
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setProfileImage("avatar.png");
         user.setCreatedAt(LocalDateTime.now());
         user.setIsBlocked(false);
         user.setIsDeleted(false);
+        user.setIsAccountNonExpired(true);
+        user.setIsAccountNonLocked(true);
+        user.setIsCredentialsNonExpired(true);
+
 
         //Assign default user role
         List<Role> roles = new ArrayList<>();

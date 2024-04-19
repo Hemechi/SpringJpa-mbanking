@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+	//security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	//mapstruct
 	compileOnly 'org.mapstruct:mapstruct:1.5.5.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
@@ -39,6 +42,15 @@ dependencies {
 
 	//postgres
 	runtimeOnly 'org.postgresql:postgresql'
+
+	//mail : gmail server
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	//spring-test : optional
+	testImplementation 'org.springframework.security:spring-security-test'
 
 }
 
