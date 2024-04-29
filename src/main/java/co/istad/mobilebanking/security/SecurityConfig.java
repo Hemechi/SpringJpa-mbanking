@@ -26,11 +26,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPublicKey;
-import java.util.List;
 import java.util.UUID;
 
 @Configuration
@@ -94,7 +89,7 @@ public class SecurityConfig {
         //        hasRole : only one role, HasAnyRole : many role
         httpSecurity
                 .authorizeHttpRequests(request -> request
-                                .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/api/v1/auths/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAuthority("SCOPE_user:write")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasAuthority("SCOPE_user:write")
@@ -209,6 +204,7 @@ public class SecurityConfig {
     JwtDecoder refreshJwtDecoder() throws JOSEException {
         return NimbusJwtDecoder
                 .withPublicKey(keyUtil.getRefreshTokenPublicKey())
+
                 .build();
     }
 }
